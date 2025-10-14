@@ -5,9 +5,9 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
 @Data
-public class DessertOrderRequest {
+public class CoffeeOrderRequest {
     @NotNull
-    private Long dessertId;
+    private Long coffeeTypeId;
 
     @NotNull
     @Positive
