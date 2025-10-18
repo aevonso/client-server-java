@@ -108,6 +108,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         }
     }
 
+    //:)
     @Override
     public void deleteSchedulesBetweenDates(LocalDate start, LocalDate end) {
         List<Schedule> schedules = scheduleRepository.findByDateBetween(start, end);
