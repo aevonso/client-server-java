@@ -27,6 +27,12 @@ public class DessertOrder {
     @Column(name = "customer_name")
     private String customerName;
 
+    @Column(name = "waiter_name")
+    private String waiterName;
+
+    @Column(name = "customer_phone")
+    private String customerPhone;
+
     @Column(name = "total_price", nullable = false)
     private BigDecimal totalPrice;
 

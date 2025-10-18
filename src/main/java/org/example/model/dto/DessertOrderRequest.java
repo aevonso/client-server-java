@@ -14,4 +14,6 @@ public class DessertOrderRequest {
     private Integer quantity;
 
     private String customerName;
+    private String waiterName;
+    private String customerPhone;
 }
