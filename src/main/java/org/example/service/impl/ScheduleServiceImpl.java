@@ -89,6 +89,34 @@ public class ScheduleServiceImpl implements ScheduleService {
         return scheduleRepository.save(schedule);
     }
 
+    @Override
+    public void deleteSchedule(Long scheduleId) {
+        if(!scheduleRepository.existsById(scheduleId)) {
+            throw new RuntimeException("Schedule not found");
+        }
+        scheduleRepository.deleteById(scheduleId);
+    }
+
+    @Override
+    public void deleteScheduleByDate(LocalDate date) {
+        Optional<Schedule> schedule = scheduleRepository.findByDate(date);
+        if(schedule.isPresent()) {
+            scheduleRepository.delete(schedule.get());
+        }
+        else {
+            throw new RuntimeException("Schedule not found" + date + " not found");
+        }
+    }
+
+    @Override
+    public void deleteSchedulesBetweenDates(LocalDate start, LocalDate end) {
+        List<Schedule> schedules = scheduleRepository.findByDateBetween(start, end);
+        if (schedules.isEmpty()) {
+            throw new RuntimeException("No schedules found between " + start + " and " + end);
+        }
+        scheduleRepository.deleteAll(schedules);
+    }
+
     private LocalDate findNextTuesday() {
         LocalDate today = LocalDate.now();
         LocalDate nextTuesday = today;

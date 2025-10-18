@@ -64,4 +64,27 @@ public class CoffeeOrderServiceImpl implements CoffeeOrderService {
 
         return coffeeOrderRepository.save(existingOrder);
     }
+
+    @Override
+    public void deleteCoffeeOrder(Long orderId) {
+        if(!coffeeOrderRepository.existsById(orderId)) {
+            throw new RuntimeException("Coffee order not found");
+        }
+        coffeeOrderRepository.deleteById(orderId);
+    }
+
+    @Override
+    public List<CoffeeOrder> getOrdersByWaiter(String waiterName) {
+        return coffeeOrderRepository.findByWaiterNameContainingIgnoreCase(waiterName);
+    }
+
+    @Override
+    public List<CoffeeOrder> getOrdersByCustomer(String customerName) {
+        return coffeeOrderRepository.findByCustomerNameContainingIgnoreCase(customerName);
+    }
+
+    @Override
+    public List<CoffeeOrder> getOrdersByCustomerPhone(String customerPhone) {
+        return coffeeOrderRepository.findByCustomerPhone(customerPhone);
+    }
 }
