@@ -64,4 +64,43 @@ public class DessertOrderServiceImpl implements DessertOrderService {
 
         return dessertOrderRepository.save(existingOrder);
     }
+
+    @Override
+    @Transactional
+    public void deleteDessertOrder(Long orderId) {
+        if(!dessertOrderRepository.existsById(orderId)) {
+            throw new RuntimeException("Dessert order not found");
+        }
+        dessertOrderRepository.deleteById(orderId);
+    }
+
+    @Override
+    public List<DessertOrder> getOrdersByDessert(Long dessertId) {
+        Dessert dessert = dessertRepository.findById(dessertId)
+                .orElseThrow(() -> new RuntimeException("Dessert not found"));
+        return dessertOrderRepository.findByDessert(dessert);
+    }
+
+    @Override
+    public List<DessertOrder> getOrdersByWaiter(String waiterName) {
+        return dessertOrderRepository.findByWaiterNameContainingIgnoreCase(waiterName);
+    }
+
+    @Override
+    public List<DessertOrder> getOrdersByCustomer(String customerName) {
+        return dessertOrderRepository.findByCustomerNameContainingIgnoreCase(customerName);
+    }
+
+    @Override
+    public List<DessertOrder> getOrdersByCustomerPhone(String customerPhone) {
+        return dessertOrderRepository.findByCustomerPhone(customerPhone);
+    }
+
+    @Override
+    @Transactional
+    public void deleteOrdersByDessert(Long dessertId) {
+        Dessert dessert = dessertRepository.findById(dessertId)
+                .orElseThrow(() -> new RuntimeException("Dessert not found"));
+        dessertOrderRepository.deleteByDessert(dessert);
+    }
 }

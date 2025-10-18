@@ -13,4 +13,7 @@ public interface ScheduleService {
     Schedule updateSchedule(Long scheduleId, ScheduleRequest request);
     Optional<Schedule> getScheduleByDate(LocalDate date);
     Schedule updateTuesdaySchedule(ScheduleRequest request);
+    void deleteSchedule(Long scheduleId);
+    void deleteScheduleByDate(LocalDate date);
+    void deleteSchedulesBetweenDates(LocalDate start, LocalDate end);
 }
