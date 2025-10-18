@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.model.Schedule;
 import org.example.model.dto.ScheduleRequest;
 import org.example.service.ScheduleService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,4 +51,28 @@ public class ScheduleController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+
+    @DeleteMapping("/date/{date}")
+    public ResponseEntity<Void> deleteScheduleByDate(
+            @PathVariable @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) {
+        scheduleService.deleteScheduleByDate(date);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/range")
+    public ResponseEntity<Void> deleteSchedulesBetweenDates(
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+        scheduleService.deleteSchedulesBetweenDates(startDate, endDate);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{scheduleId}")
+    public ResponseEntity<Void> deleteSchedule(@PathVariable Long scheduleId) {
+        scheduleService.deleteSchedule(scheduleId);
+        return ResponseEntity.noContent().build();
+    }
+
+
+
 }
