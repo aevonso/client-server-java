@@ -16,4 +16,5 @@ public class CoffeeOrderRequest {
     private String customerName;
     private String waiterName;
     private String customerPhone;
+    private Long baristaId;
 }
