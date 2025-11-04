@@ -44,4 +44,8 @@ public class DessertOrder {
 
     @Column(name = "applied_discount")
     private Double appliedDiscount = 0.0;
+
+    @ManyToOne
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
 }

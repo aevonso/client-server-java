@@ -43,4 +43,8 @@ public class CoffeeOrder {
 
     @Column(name = "applied_discount")
     private Double appliedDiscount = 0.0;
+
+    @ManyToOne
+    @JoinColumn(name = "barista_id")
+    private Employee barista;
 }
