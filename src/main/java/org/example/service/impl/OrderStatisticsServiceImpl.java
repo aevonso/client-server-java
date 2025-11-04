@@ -17,8 +17,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static java.util.Collections.max;
-
 @Service
 @RequiredArgsConstructor
 public class OrderStatisticsServiceImpl implements OrderStatisticsService {
@@ -26,7 +24,6 @@ public class OrderStatisticsServiceImpl implements OrderStatisticsService {
     private final CoffeeOrderRepository coffeeOrderRepository;
     private final DessertOrderRepository dessertOrderRepository;
     private final CustomerRepository customerRepository;
-
 
     @Override
     public Map<String, Object> getOrdersByDate(LocalDate date) {
@@ -74,7 +71,6 @@ public class OrderStatisticsServiceImpl implements OrderStatisticsService {
         return coffeeOrderRepository.countByOrderDate(date);
     }
 
-
     @Override
     public List<Map<String, Object>> getTodayCustomersWithBaristaInfo() {
         List<Map<String, Object>> result = new ArrayList<>();
@@ -97,11 +93,12 @@ public class OrderStatisticsServiceImpl implements OrderStatisticsService {
     @Override
     public Double getAverageOrderTotalByDate(LocalDate date) {
         Double coffeeAvg = coffeeOrderRepository.findAverageOrderTotalByDate(date);
+
+        // Исправлено: заменил 'do' на 'dessertOrder'
         Double dessertAvg = dessertOrderRepository.findByOrderDate(date).stream()
-                .mapToDouble(do -> do.getTotalPrice().doubleValue())
+                .mapToDouble(dessertOrder -> dessertOrder.getTotalPrice().doubleValue())
                 .average()
                 .orElse(0.0);
-
 
         long coffeeCount = coffeeOrderRepository.countByOrderDate(date);
         long dessertCount = dessertOrderRepository.countByOrderDate(date);
@@ -118,8 +115,10 @@ public class OrderStatisticsServiceImpl implements OrderStatisticsService {
     @Override
     public Double getMaxOrderTotalByDate(LocalDate date) {
         Double coffeeMax = coffeeOrderRepository.findMaxOrderTotalByDate(date);
+
+        // Исправлено: заменил 'do' на 'dessertOrder'
         Double dessertMax = dessertOrderRepository.findByOrderDate(date).stream()
-                .mapToDouble(do -> do.getTotalPrice().doubleValue())
+                .mapToDouble(dessertOrder -> dessertOrder.getTotalPrice().doubleValue())
                 .max()
                 .orElse(0.0);
 
