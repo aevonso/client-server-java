@@ -36,4 +36,11 @@ public class CoffeeOrder {
     private BigDecimal totalPrice;
 
     private String status;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
+    @Column(name = "applied_discount")
+    private Double appliedDiscount = 0.0;
 }
