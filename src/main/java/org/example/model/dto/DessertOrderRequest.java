@@ -16,4 +16,6 @@ public class DessertOrderRequest {
     private String customerName;
     private String waiterName;
     private String customerPhone;
+    private Long customerId;
+    private Long employeeId;
 }
