@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
+import type { Notification } from '@/types'
 
 export const useAppStore = defineStore('app', () => {
     const isLoading = ref(false)
@@ -46,12 +47,3 @@ export const useAppStore = defineStore('app', () => {
         markAsRead
     }
 })
-
-interface Notification {
-    id: number
-    type: 'success' | 'error' | 'warning' | 'info'
-    title: string
-    message: string
-    timestamp: Date
-    read: boolean
-}
